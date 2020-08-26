@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.cap.banking.BankSimpleSimulator.config.security.UsuarioPrincipal;
 import com.cap.banking.BankSimpleSimulator.errorhandling.UsuarioNotFoundException;
+import com.cap.banking.BankSimpleSimulator.model.Conta;
 import com.cap.banking.BankSimpleSimulator.model.Usuario;
 import com.cap.banking.BankSimpleSimulator.repository.UsuarioRepository;
 
@@ -43,7 +44,12 @@ public class UsuarioService {
 	}
 	
 	public Usuario save(Usuario usuario) {
+		Conta conta = new Conta();
+
+		System.out.println(usuario);
+		usuario.setConta(conta);
 		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+
 		return usuarioRepository.save(usuario);
 	}
 

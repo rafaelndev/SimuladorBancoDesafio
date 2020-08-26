@@ -5,7 +5,7 @@
                 <h2>Bem Vindo Rafael Nascimento</h2>
             </div>
             <div class="card-body">
-                <h5 class="card-title">Seu saldo atual: R$ {{conta?.saldo}}</h5>
+                <h5 class="card-title">Seu saldo atual: {{conta?.saldo | real }}</h5>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
 </div>
 
 <div class="row">
-    <div class="col col-md-6">
+    <div class="col col-md-8">
         <div class="card">
             <div class="card-header text-white bg-primary mb-3">
                 <h4>Transações</h4>
@@ -45,18 +45,24 @@
                         <tr>
                             <th scope="col">Data</th>
                             <th scope="col">Tipo</th>
-                            <th scope="col">Movimentação</th>
                             <th scope="col">Saldo Inicial</th>
+                            <th scope="col">Movimentação</th>
                             <th scope="col">Saldo Final</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let t of transacoes; index as i" [ngClass]="{'table-danger': t.descricao === 'Saque', 'table-success': t.descricao === 'Deposito'}">
+                        <tr *ngFor="let t of transacoes; index as i" [ngClass]="{
+                            'table-danger': t.descricao === TransacaoEnum.SAQUE,
+                            'table-success': t.descricao === TransacaoEnum.DEPOSITO
+                        }">
                             <td>{{t.data | date:'medium'}}</td>
-                            <td> {{ t.descricao }} </td>
-                            <td>R$ {{ t.quantia }}</td>
-                            <td>R$ {{ t.saldoInicial | mask:'99,999.999.999' }}</td>
-                            <td>R$ {{ t.saldoFinal | mask:'99,999.999.999' }}</td>
+                            <td>{{ t.descricao }} </td>
+                            <td>{{ t.saldoInicial | real }}</td>
+                            <td>
+                                <span [hidden]="t.descricao !== TransacaoEnum.SAQUE">-</span>
+                                <span [hidden]="t.descricao !== TransacaoEnum.DEPOSITO">+</span>
+                                {{ t.quantia | real }}</td>
+                            <td>{{ t.saldoFinal | real }}</td>
                         </tr>
                     </tbody>
                 </table>

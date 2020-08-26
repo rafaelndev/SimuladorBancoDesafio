@@ -15,4 +15,12 @@ export class ToastService {
   remove(toast) {
     this.toasts = this.toasts.filter(t => t !== toast);
   }
+
+  sucesso(texto: string): void {
+    this.show(texto, { classname: 'bg-success' });
+  }
+
+  erro(texto: string): void {
+    this.show(texto, { classname: 'bg-danger text-light' });
+  }
 }

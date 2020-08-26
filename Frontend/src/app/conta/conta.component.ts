@@ -1,3 +1,4 @@
+import { TransacaoEnum } from './../entity/transacao.enum';
 import { TransacaoEntity } from './../entity/transacao.entity';
 import { ContaService } from './../services/conta.service';
 import { ContaEntity } from './../entity/conta.entity';
@@ -16,6 +17,8 @@ export class ContaComponent implements OnInit {
 
   public conta: ContaEntity = null;
   public transacoes: TransacaoEntity[];
+
+  TransacaoEnum = TransacaoEnum;
 
   constructor(private contaService: ContaService, private router: Router, private route: ActivatedRoute) { }
 

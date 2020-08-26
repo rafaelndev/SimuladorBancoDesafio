@@ -1,3 +1,4 @@
+import { RegistroComponent } from './usuario/registro/registro.component';
 import { AuthGuardService } from './login/auth-guard.service';
 import { DepositoComponent } from './conta/deposito/deposito.component';
 import { LoginComponent } from './login/login.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'conta/deposito', component: DepositoComponent, canActivate: [AuthGuardService] },
   { path: 'conta/saque', component: SaqueComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
+  { path: 'registrar', component: RegistroComponent },
   { path: 'logout', component: LoginComponent, canActivate: [AuthGuardService] }
 ];
 

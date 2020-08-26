@@ -1,3 +1,4 @@
+import { RealPipe } from './util/real.pipe';
 import { AuthGuardService } from './login/auth-guard.service';
 import { HttpInterceptService } from './util/http-intercept.service';
 import { LoginComponent } from './login/login.component';
@@ -14,6 +15,7 @@ import { SaqueComponent } from './conta/saque/saque.component';
 import { DepositoComponent } from './conta/deposito/deposito.component';
 import { ToastComponent } from './util/toast/toast.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { RegistroComponent } from './usuario/registro/registro.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
     SaqueComponent,
     DepositoComponent,
     LoginComponent,
-    ToastComponent
+    ToastComponent,
+    RegistroComponent,
+    RealPipe
   ],
   imports: [
     BrowserModule,

@@ -30,7 +30,7 @@ public class UsuarioController {
 		return usuarioService.findAll();
 	}
 
-	@PostMapping("/usuarios")
+	@PostMapping("/registro")
 	Usuario newUsuario(@RequestBody Usuario novoUsuario) {
 		return usuarioService.save(novoUsuario);
 	}

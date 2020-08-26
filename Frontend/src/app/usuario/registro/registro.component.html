@@ -1,0 +1,42 @@
+
+<div class="container col-lg-6">
+    <h1 class="text-center">Efetue seu cadastro</h1>
+    <div class="card">
+        <div class="card-body">
+            <form class="form-group" [formGroup]="registroForm" (ngSubmit)="registro(registroForm.value)">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" class="form-control" id="nome"  placeholder="Nome" name="nome"
+                        formControlName="nome">
+                </div>
+                <div class="form-group">
+                    <label for="nome">Sobrenome:</label>
+                    <input type="text" class="form-control" id="sobrenome"  placeholder="Sobrenome" name="sobrenome"
+                        formControlName="sobrenome">
+                </div>
+                <div class="form-group">
+                    <label for="nome">Email:</label>
+                    <input type="text" class="form-control" id="email"  placeholder="Digite seu Email" name="email"
+                        email formControlName="email">
+                </div>
+                <div class="form-group">
+                    <label for="nome">Telefone:</label>
+                    <input type="text" class="form-control" id="telefone"  placeholder="Digite seu Telefone" name="telefone"
+                        formControlName="telefone">
+                </div>
+                <div class="form-group">
+                    <label for="email">Usuário</label>
+                    <input type="text" class="form-control" id="usuario" placeholder="Digite seu Usuário" name="usuario"
+                        formControlName="usuario">
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" class="form-control" id="password"  placeholder="Digite sua Senha" name="senha"
+                        formControlName="senha">
+                </div>
+                <button type="submit" class="btn btn-success mr-3">Registrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+

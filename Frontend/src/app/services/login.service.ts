@@ -36,11 +36,11 @@ export class LoginService {
           this.token = token;
           this.saveLogin(token);
 
-          this.toast.show('Login efetuado com sucesso, estamos te redirecionando para sua conta');
+          this.toast.sucesso('Login efetuado com sucesso, estamos te redirecionando para sua conta');
           this.router.navigate(['/']);
         },
         error => {
-          this.toast.show('Falha na autenticação, verifique seus dados ou crie uma nova conta.', { classname: 'bg-danger text-light' });
+          this.toast.erro('Falha na autenticação, verifique seus dados ou crie uma nova conta.');
           console.log(error);
         }
       );

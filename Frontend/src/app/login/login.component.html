@@ -3,8 +3,6 @@
     <div class="card">
         <div class="card-body">
             <form class="form-group" [formGroup]="loginForm" (ngSubmit)="autenticar(loginForm.value)">
-                <div class="alert alert-warning" *ngIf='false'></div>
-                <div class="alert alert-success" *ngIf='true'></div>
                 <div class="form-group">
                     <label for="email">Usuário</label>
                     <input type="text" class="form-control" id="usuario" placeholder="Digite seu Usuário" name="usuario"

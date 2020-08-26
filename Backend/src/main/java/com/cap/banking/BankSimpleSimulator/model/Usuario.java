@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Usuario {
@@ -17,6 +18,7 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false, updatable = false)
+	@JsonIgnore
 	private Long id;
 	
 	@JsonIgnore
@@ -30,8 +32,6 @@ public class Usuario {
 	private String segundoNome;
 	private String email;
 	private String telefone;
-	
-	private boolean habilitado = true;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "conta_id", referencedColumnName = "id")
@@ -49,6 +49,7 @@ public class Usuario {
 		return usuario;
 	}
 
+	@JsonProperty
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
@@ -57,6 +58,7 @@ public class Usuario {
 		return senha;
 	}
 
+	@JsonProperty
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
@@ -93,19 +95,18 @@ public class Usuario {
 		this.telefone = telefone;
 	}
 
-	public boolean isHabilitado() {
-		return habilitado;
-	}
-
-	public void setHabilitado(boolean habilitado) {
-		this.habilitado = habilitado;
-	}
-
 	public Conta getConta() {
 		return conta;
 	}
 
 	public void setConta(Conta conta) {
 		this.conta = conta;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", usuario=" + usuario + ", senha=" + senha + ", primeiroNome=" + primeiroNome
+				+ ", segundoNome=" + segundoNome + ", email=" + email + ", telefone=" + telefone + ", conta=" + conta
+				+ "]";
 	}
 }
