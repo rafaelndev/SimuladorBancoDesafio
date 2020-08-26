@@ -36,3 +36,7 @@ Acesso padrão: http://localhost:4200
 mvn spring-boot:run
 ```
 Acesso padrão (api): http://localhost:8080/api
+
+## Melhorias Arquitetuais Propostas
+* Modificar a autenticação para OAuth2 + JWT Token
+* Ultilizar ExceptionHandler do Spring para tratamento de exceções
