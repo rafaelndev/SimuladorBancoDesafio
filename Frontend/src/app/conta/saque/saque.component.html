@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col col-md-6">
+        <form [formGroup]="saqueForm" (ngSubmit)="realizarSaque(saqueForm.value)">
+            <div class="form-group">
+                <label for="quantia">
+                    <h3>Quantia</h3>
+                </label>
+                <input type="text" id="quantia" class="form-control" formControlName="quantia"
+                    mask="separator.2"
+                    [thousandSeparator]="'.'" 
+                    [decimalMarker]="','" 
+                     prefix="R$ "
+                    [dropSpecialCharacters]="true">
+
+            </div>
+            <hr>
+
+                <button type="button" class="btn btn-secondary mr-2" routerLink="/conta">Cancelar</button>
+
+                <button type="submit" class="btn btn-success">Sacar</button>
+        </form>
+    </div>
+</div>

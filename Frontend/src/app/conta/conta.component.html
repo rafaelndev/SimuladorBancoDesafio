@@ -1,0 +1,66 @@
+<div class="row mb-5">
+    <div class="col col-md-6">
+        <div class="card">
+            <div class="card-header text-white bg-primary mb-3">
+                <h2>Bem Vindo Rafael Nascimento</h2>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Seu saldo atual: R$ {{conta?.saldo}}</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="col col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h4>Realizar Deposito</h4>
+            </div>
+            <div class="card-body">
+                <a class="btn btn-primary" (click)="deposito()">Depositar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h4>Realizar Saque</h4>
+            </div>
+            <div class="card-body">
+                <a class="btn btn-primary" (click)="saque()">Sacar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col col-md-6">
+        <div class="card">
+            <div class="card-header text-white bg-primary mb-3">
+                <h4>Transações</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-small">
+                    <thead>
+                        <tr>
+                            <th scope="col">Data</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Movimentação</th>
+                            <th scope="col">Saldo Inicial</th>
+                            <th scope="col">Saldo Final</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let t of transacoes; index as i" [ngClass]="{'table-danger': t.descricao === 'Saque', 'table-success': t.descricao === 'Deposito'}">
+                            <td>{{t.data | date:'medium'}}</td>
+                            <td> {{ t.descricao }} </td>
+                            <td>R$ {{ t.quantia }}</td>
+                            <td>R$ {{ t.saldoInicial | mask:'99,999.999.999' }}</td>
+                            <td>R$ {{ t.saldoFinal | mask:'99,999.999.999' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

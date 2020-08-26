@@ -1,0 +1,24 @@
+<div class="container col-lg-6">
+    <h1 class="text-center">Login</h1>
+    <div class="card">
+        <div class="card-body">
+            <form class="form-group" [formGroup]="loginForm" (ngSubmit)="autenticar(loginForm.value)">
+                <div class="alert alert-warning" *ngIf='false'></div>
+                <div class="alert alert-success" *ngIf='true'></div>
+                <div class="form-group">
+                    <label for="email">Usuário</label>
+                    <input type="text" class="form-control" id="usuario" placeholder="Digite seu Usuário" name="usuario"
+                        formControlName="usuario">
+                </div>
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" class="form-control" id="password"  placeholder="Digite sua Senha" name="senha"
+                        formControlName="senha">
+                </div>
+                <button type="submit" class="btn btn-success mr-3">Entrar</button>
+
+                <button class="btn btn-primary">Clique para Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</div>

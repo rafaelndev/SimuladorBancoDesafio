@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col col-lg-12">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Simulator de Banco</a>
+
+        <div class="collapse navbar-collapse" id="navbar1">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" routerLink="/conta">Conta Bancaria</a>
+            </li>
+          </ul>
+              <a class="nav-link red" (click)="logout()">Sair</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+<app-toast aria-live="polite" aria-atomic="true"></app-toast>
+
+  <hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col col-lg-12">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
