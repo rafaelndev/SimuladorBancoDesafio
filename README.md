@@ -18,6 +18,7 @@ No Back-end, foi usado a arquitetura padrão do Spring Boot
 Foi usado também uma camada de Basic Authentication para registro de usuário.
 
 ## Problemas encontrados
+Não foram encontrados problemas significativos na implementação.
 
 ## Solução / Padrão Arquitetural
 Decidi por adicionar autenticação no projeto, para que a tomada de decisão seja feita mas pelo lado do servidor, tirando a dependência de dados enviados pelo cliente. 
