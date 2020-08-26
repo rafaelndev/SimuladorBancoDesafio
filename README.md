@@ -23,3 +23,16 @@ Não foram encontrados problemas significativos na implementação.
 ## Solução / Padrão Arquitetural
 Decidi por adicionar autenticação no projeto, para que a tomada de decisão seja feita mas pelo lado do servidor, tirando a dependência de dados enviados pelo cliente. 
 Dessa forma a Conta Bancária que o usuário tem acesso, é ligada sempre ao Usuário logado, impedindo assim o acesso a outras contas.
+
+## Inicialização em Desenvolvimento
+### FrontEnd
+```shell
+ng serve
+```
+
+Acesso padrão: http://localhost:4200
+### Backend
+```shell
+mvn spring-boot:run
+```
+Acesso padrão (api): http://localhost:8080/api
