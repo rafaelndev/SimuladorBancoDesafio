@@ -21,17 +21,20 @@ export class SaqueComponent implements OnInit {
     });
   }
 
+  /**
+   * Fazer o saque da conta, baseada com dados passados pelo formulário
+   */
   realizarSaque(formData) {
     let mov = new MovimentacaoEntity();
     mov.quantia = formData.quantia;
     this.contaService.saque(mov).subscribe(
       data => {
-          this.toast.show('Saque realizado com sucesso.');
+          this.toast.sucesso('Saque realizado com sucesso.');
           this.router.navigate(['/conta']);
       },
       err => {
         console.log(err);
-          this.toast.show(err.error.message, { classname: 'bg-danger text-light' });
+          this.toast.erro(err.error.message);
       }
     )
   }

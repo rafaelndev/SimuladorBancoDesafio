@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   autenticar(formData): void {
     if (!formData.usuario || !formData.senha) {
-          this.toast.show('Por favor verifique seus dados.', { classname: 'bg-danger text-light' });
+          this.toast.erro('Por favor verifique seus dados.');
       return;
     }
     this.loginService.login(formData.usuario, formData.senha);

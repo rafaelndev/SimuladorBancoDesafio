@@ -12,9 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 @SequenceGenerator(name="accountSequence", initialValue=1, allocationSize=100)
@@ -23,20 +27,18 @@ public class Conta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false, updatable = false)
 	private Long id;
-
-	@GeneratedValue(strategy = GenerationType.TABLE, generator="accountSequence")
-	private int accountNumber;
 	
 	private BigDecimal saldo;
     @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Transacao> transacoes;
     
-    @OneToOne(mappedBy = "conta", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "conta")
     private Usuario usuario;
 	
     public Conta() {
     	this.saldo = BigDecimal.ZERO;
     }
+
 
 	public BigDecimal getSaldo() {
 		return saldo;
@@ -54,12 +56,18 @@ public class Conta {
 		this.id = id;
 	}
 
-	public int getAccountNumber() {
-		return accountNumber;
+	@JsonInclude
+	public String getNumeroConta() {
+		if (this.id != null) {
+		return String.format("%06d", id);
+		} else {
+			return "";
+		}
 	}
 
-	public void setAccountNumber(int accountNumber) {
-		this.accountNumber = accountNumber;
+	@Override
+	public String toString() {
+		return "Conta [id=" + id + ", NumeroConta=" + getNumeroConta() + ", saldo=" + saldo + "]" ;
 	}
 
 }

@@ -30,6 +30,12 @@ public class UsuarioController {
 		return usuarioService.findAll();
 	}
 
+	@GetMapping("/usuario")
+	Usuario find() {
+		Usuario user = usuarioService.getUsuarioLogado();
+		return user;
+	}
+
 	@PostMapping("/registro")
 	Usuario newUsuario(@RequestBody Usuario novoUsuario) {
 		return usuarioService.save(novoUsuario);

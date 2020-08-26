@@ -2,7 +2,7 @@
     <div class="col col-md-6">
         <div class="card">
             <div class="card-header text-white bg-primary mb-3">
-                <h2>Bem Vindo Rafael Nascimento</h2>
+              <h2>Bem Vindo {{ usuarioLogado?.primeiroNome }} {{usuarioLogado?.segundoNome}}</h2>
             </div>
             <div class="card-body">
                 <h5 class="card-title">Seu saldo atual: {{conta?.saldo | real }}</h5>

@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import {UsuarioService} from '../services/usuario.service';
+import {LoginService} from '../services/login.service';
+import {UsuarioEntity} from '../entity/usuario.entity';
 
 @Component({
   selector: 'app-conta',
@@ -18,14 +21,17 @@ export class ContaComponent implements OnInit {
   public conta: ContaEntity = null;
   public transacoes: TransacaoEntity[];
 
+  public usuarioLogado: UsuarioEntity;
+
   TransacaoEnum = TransacaoEnum;
 
-  constructor(private contaService: ContaService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private contaService: ContaService, private router: Router, private route: ActivatedRoute, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
 
     this.loadConta();
     this.loadTransacoes();
+    this.loadUsuarioLogado();
   }
 
   loadConta(): void {
@@ -37,8 +43,16 @@ export class ContaComponent implements OnInit {
   loadTransacoes(): void {
     this.contaService.listaTransacoes().subscribe(res => {
       this.transacoes = res;
-      console.log(this.transacoes);
     });
+  }
+
+  loadUsuarioLogado(): void {
+    this.usuarioService.getUsuarioLogado().subscribe(
+      (user: UsuarioEntity) => {
+        console.log(this.usuarioLogado);
+        this.usuarioLogado = user;
+      }
+    );
   }
 
   saque() {

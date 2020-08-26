@@ -40,31 +40,16 @@ public class ContaController {
 
 	@PostMapping("/conta/deposito")
 	void deposito(@RequestBody Movimentacao mov) {
-		Conta conta = contaService.findContaByUsuarioLogado();
-
-		if (mov.getQuantia() == null || mov.getQuantia().floatValue() <= 0L) {
-			throw new MovimentacaoException("Ocorreu uma falha ao tentar realizar o deposito, verifique o valor digitado.");
-		}
-		contaService.deposito(conta.getId(), mov.getQuantia());
+		contaService.deposito(mov);
 	}
 
 	@PostMapping("/conta/saque")
 	void saque(@RequestBody Movimentacao mov) {
-		Conta conta = contaService.findContaByUsuarioLogado();
-
-		if (mov.getQuantia() == null || mov.getQuantia().floatValue() <= 0L) {
-			throw new MovimentacaoException("Ocorreu uma falha ao tentar realizar o saque, verifique o valor digitado.");
-		}
-		// Conta com saldo menor do que o valor do saque
-		if (conta.getSaldo().compareTo(mov.getQuantia()) == -1) {
-			throw new MovimentacaoException("Você não possui dinheiro suficiente em conta para realizar esse saque.");
-		}
-		contaService.saque(conta.getId(), mov.getQuantia());
+		contaService.saque(mov);
 	}
 	
 	@GetMapping("conta/transacoes")
 	List<Transacao> listaTransacoes() {
-		Conta conta = contaService.findContaByUsuarioLogado();
-		return contaService.listaTransacoes(conta.getId());
+		return contaService.listaTransacoes();
 	}
 }

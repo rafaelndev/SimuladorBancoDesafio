@@ -20,7 +20,6 @@ public class UsuarioDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = null;
-		System.out.println("loadUserByUsername: " + username);
 
 		try {
 			usuario = usuarioService.findByUsuario(username);

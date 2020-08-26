@@ -8,15 +8,23 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class UsuarioService {
-
-
   baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Realiza o registro de um novo usuário
+   * @param user novoUsuario
+   */
   novoUsuario(user: UsuarioEntity): Observable<UsuarioEntity> {
     const url = `${this.baseUrl}/registro`;
 
     return this.http.post<UsuarioEntity>(url, user);
+  }
+
+  getUsuarioLogado(): Observable<UsuarioEntity> {
+    const url = `${this.baseUrl}/usuario`;
+
+    return this.http.get<UsuarioEntity>(url);
   }
 }

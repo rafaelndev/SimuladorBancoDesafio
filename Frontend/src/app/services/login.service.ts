@@ -4,27 +4,34 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
+import {UsuarioEntity} from '../entity/usuario.entity';
+import {UsuarioService} from './usuario.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  baseUrl = environment.baseUrl;
+  private baseUrl = environment.baseUrl;
 
-  SESSION = 'authUsuario';
+  private SESSION = 'authUsuario';
 
-  token: string;
+  private token: string;
 
-  autenticado = false;
 
-  constructor(private http: HttpClient, private toast: ToastService, private router: Router) {
+  constructor(private http: HttpClient, private toast: ToastService, private router: Router, private usuarioService: UsuarioService) {
   }
 
-  login(usuario, senha) {
+  /**
+   * Realiza o login de Autenticação Básica
+   * @param usuario
+   * @param senha 
+   */
+  login(usuario: string, senha: string): void {
     const token = this.basicToken(usuario, senha);
 
-    return this.http.get(`${this.baseUrl}/basiclogin`,
+
+    this.http.get(`${this.baseUrl}/basiclogin`,
       {
         headers:
           new HttpHeaders({
@@ -35,13 +42,13 @@ export class LoginService {
         data => {
           this.token = token;
           this.saveLogin(token);
-
+          
           this.toast.sucesso('Login efetuado com sucesso, estamos te redirecionando para sua conta');
           this.router.navigate(['/']);
         },
         error => {
           this.toast.erro('Falha na autenticação, verifique seus dados ou crie uma nova conta.');
-          console.log(error);
+          this.logout();
         }
       );
   }

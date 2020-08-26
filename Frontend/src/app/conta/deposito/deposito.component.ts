@@ -22,16 +22,19 @@ export class DepositoComponent implements OnInit {
     });
   }
 
+  /**
+   * Fazer o deposito na conta, baseada com dados passados pelo formulário
+   */
   realizarDeposito(formData) {
     let mov = new MovimentacaoEntity();
     mov.quantia = formData.quantia;
     this.contaService.deposito(mov).subscribe(
       data => {
-          this.toast.show('Deposito realizado com sucesso.');
+          this.toast.sucesso('Deposito realizado com sucesso.');
           this.router.navigate(['/conta']);
       },
       error => {
-          this.toast.show('Ocorreu uma falha ao tentar realizar o deposito, favor tentar novamente mais tarde', { classname: 'bg-danger text-light' });
+          this.toast.erro('Ocorreu uma falha ao tentar realizar o deposito, favor tentar novamente mais tarde');
       }
     )
   }

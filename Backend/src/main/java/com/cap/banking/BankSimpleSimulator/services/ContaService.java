@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cap.banking.BankSimpleSimulator.errorhandling.ContaNotFoundException;
+import com.cap.banking.BankSimpleSimulator.errorhandling.MovimentacaoException;
 import com.cap.banking.BankSimpleSimulator.model.Conta;
+import com.cap.banking.BankSimpleSimulator.model.Movimentacao;
 import com.cap.banking.BankSimpleSimulator.model.Transacao;
 import com.cap.banking.BankSimpleSimulator.model.Usuario;
 import com.cap.banking.BankSimpleSimulator.repository.ContaRepository;
@@ -44,42 +46,61 @@ public class ContaService {
 	}
 	
 	@Transactional
-	public int deposito(Long id, BigDecimal valor) {
-		Conta contaAfetada = findById(id);
-		BigDecimal saldoAtual = contaAfetada.getSaldo();
-		BigDecimal novoSaldo = saldoAtual.add(valor);
+	public int deposito(Movimentacao mov) {
+
+		Conta conta = findContaByUsuarioLogado();
+
+		if (mov.getQuantia() == null || mov.getQuantia().floatValue() <= 0L) {
+			throw new MovimentacaoException("Ocorreu uma falha ao tentar realizar o deposito, verifique o valor digitado.");
+		}
+
+		BigDecimal saldoAtual = conta.getSaldo();
+		BigDecimal novoSaldo = saldoAtual.add(mov.getQuantia());
 
 		Transacao transacao = new Transacao();
-		transacao.setConta(contaAfetada);
+		transacao.setConta(conta);
 		transacao.setData(new Date());
-		transacao.setQuantia(valor);
-		transacao.setDescricao("Deposito");
+		transacao.setQuantia(mov.getQuantia());
+		transacao.setDescricao(TransacaoTipo.DEPOSITO.getTipo());
 		transacao.setSaldoInicial(saldoAtual);
 		transacao.setSaldoFinal(novoSaldo);
 		transacaoRepository.save(transacao);
 		
-		return contaRepository.updateSaldo(id, novoSaldo);
+		return contaRepository.updateSaldo(conta.getId(), novoSaldo);
 	}
 
 	@Transactional
-	public int saque(Long id, BigDecimal valor) {
-		Conta contaAfetada = findById(id);
-		BigDecimal saldoAtual = contaAfetada.getSaldo();
-		BigDecimal novoSaldo = saldoAtual.subtract(valor);
+	public int saque(Movimentacao mov) {
+
+		Conta conta = findContaByUsuarioLogado();
+
+		if (mov.getQuantia() == null || mov.getQuantia().floatValue() <= 0L) {
+			throw new MovimentacaoException("Ocorreu uma falha ao tentar realizar o saque, verifique o valor digitado.");
+		}
+		// Conta com saldo menor do que o valor do saque
+		if (conta.getSaldo().compareTo(mov.getQuantia()) == -1) {
+			throw new MovimentacaoException("Você não possui dinheiro suficiente em conta para realizar esse saque.");
+		}
+
+		BigDecimal saldoAtual = conta.getSaldo();
+		BigDecimal novoSaldo = saldoAtual.subtract(mov.getQuantia());
 
 		Transacao transacao = new Transacao();
-		transacao.setConta(contaAfetada);
+		transacao.setConta(conta);
 		transacao.setData(new Date());
-		transacao.setQuantia(valor);
-		transacao.setDescricao("Saque");
+		transacao.setQuantia(mov.getQuantia());
+		transacao.setDescricao(TransacaoTipo.SAQUE.getTipo());
 		transacao.setSaldoInicial(saldoAtual);
 		transacao.setSaldoFinal(novoSaldo);
 		transacaoRepository.save(transacao);
-		return contaRepository.updateSaldo(id, novoSaldo);
+
+		return contaRepository.updateSaldo(conta.getId(), novoSaldo);
 	}
 	
-	public List<Transacao> listaTransacoes(Long conta_id) {
-		return this.transacaoRepository.findAllByContaIdOrderByDataDesc(conta_id);
+	public List<Transacao> listaTransacoes() {
+
+		Conta conta = findContaByUsuarioLogado();
+		return this.transacaoRepository.findAllByContaIdOrderByDataDesc(conta.getId());
 	}
 	
 	public Conta findContaByUsuarioLogado() {

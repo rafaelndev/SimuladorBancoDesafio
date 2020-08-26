@@ -26,8 +26,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-//	@Autowired
-//	private AuthProvider authProvider;
 
 	@Autowired
 	private UsuarioDetailsService usuarioDetailsService;
@@ -75,17 +73,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
-//	@Bean
-//	CorsConfigurationSource corsConfigurationSource() {
-//		CorsConfiguration configuration = new CorsConfiguration();
-//		configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200/"));
-//		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS"));
-//		configuration.addExposedHeader("Authorization");
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		source.registerCorsConfiguration("/**", configuration);
-//		return source;
-//	}
-
+	/**
+	 * Permitir acesso
+	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/h2/**", "/login/**", "/logout", "/registro");

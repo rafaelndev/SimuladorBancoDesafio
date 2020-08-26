@@ -1,5 +1,6 @@
 package com.cap.banking.BankSimpleSimulator.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,6 @@ public class UsuarioService {
 	public Usuario save(Usuario usuario) {
 		Conta conta = new Conta();
 
-		System.out.println(usuario);
 		usuario.setConta(conta);
 		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 
